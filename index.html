@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collaborative Networks</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="network.js"></script>
+    <style>
+        body{
+            margin: 0px;
+        }
+        #Paper_Title{
+            position: absolute;
+            top: 15vh;
+            left: 25vh;
+            font-size: 12pt;
+            font-family: sans-serif;
+        }
+        #caption{
+            text-align: center;
+            font-family: sans-serif;
+        }
+        svg{
+            width: 70vw;
+            height: 70vw;
+        }
+        #controls {
+            position: absolute;
+            top: 10vh;
+            right: 5%;
+            width: 20%;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #country-legend {
+            position: absolute;
+            top: 45vh;
+            right: 0%;
+            width: 30%;
+            padding: 10px;
+        }
+        .clegend-entry {
+        margin-bottom: 5px;
+    }
+    .clegend-column {
+        float: left;
+        width: 30%;
+    }
+    #color-legend {
+            position: absolute;
+            top: 45vh;
+            right: -8%;
+            width: 30%;
+            padding: 10px;
+    }
+    .dlegend-entry {
+        margin-bottom: 5px;
+    }
+    .dlegend-column {
+        float: right;
+        width: 50%;
+    }
+    </style>
+</head>
+<body>
+<div id ="caption"><h1> Collaborative Networks: Exploring Author Co-Authorship Relationships </h1></div>
+<div id="Paper_Title"></div>
+<div id="controls">
+    <div>
+        <label for="collide">Collide Force:</label>
+        <input type="range" id="collide" min="0" max="15" step="1" value="0">
+        <span id="collide-value">0</span>
+    </div>
+    <div>
+        <label for="link-strength">Link Strength:</label>
+        <input type="range" id="link-strength" min="0" max="5" step="1" value="1">
+        <span id="link-strength-value">1</span>
+    </div>
+    <div class="col">
+        <label for="charge">Charge Force:</label>
+        <input type="range" id="charge" min="-1000" max="1000" step="10" value="0">
+        <span id="charge-value">0</span>
+    </div>
+    <br>
+    <div id="size-radio">
+        <label>Node Size by:</label><br>
+        <input type="radio" name="node-size" value="Publications">Number of Publications <br>
+        <input type="radio" name="node-size" value="Node Degree">Node Degree <br>
+        <input type="radio" name="node-size" value="Citations" checked>Number of Citations
+    </div>
+    <div id="color-radio">
+        <label>Node Color by:</label><br>
+        <input type="radio" name="node-color" value="Country" checked>Country <br>
+        <input type="radio" name="node-color" value="Degree Centrality">Degree Centrality
+    </div>
+</div>
+<div id="legend">
+    <div id="country-legend" class="legend">
+    </div>
+    <div id="color-legend" class="legend">
+    </div>
+</div>
+<script>
+    d3.json("./data/publication_network.json").then(function (data){
+        let svg = d3.select('body').append("svg").attr("viewBox","0 0 1000 800")
+        console.log(data)
+        simulate(data,svg)
+    })
+</script>
+</body>
+</html>
