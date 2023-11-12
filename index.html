@@ -104,7 +104,7 @@
     </div>
 </div>
 <script>
-    d3.json("./data/publication_network.json").then(function (data){
+    d3.json("publication_network.json").then(function (data){
         let svg = d3.select('body').append("svg").attr("viewBox","0 0 1000 800")
         console.log(data)
         simulate(data,svg)
